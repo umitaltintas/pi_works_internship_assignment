@@ -67,15 +67,17 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
 
     @Override
     public boolean equals(Object o) {
-
+        Node<T> other;
         if (o == this) {
             return true;
         }
 
-        if (!(o instanceof Node)) {
+        if ((o instanceof Node)) {
+            other = (Node<T>) o;
+
+        } else {
             return false;
         }
-        Node<T> other = (Node<T>) o;
         return this.value.compareTo(other.value) == 0;
 
     }

@@ -19,30 +19,30 @@ public class Tree<T extends Comparable<T>> {
     }
 
     public void delete(T value) {
-        Node<T> sNode = new Node<>(value);
+        Node<T> searchNode = new Node<>(value);
 
         Node<T> parent = null;
 
-        Node<T> curr = rootNode;
+        Node<T> cursorNode = rootNode;
 
-        while (curr != null && !curr.equals(sNode)) {
+        while (cursorNode != null && !cursorNode.equals(searchNode)) {
 
-            parent = curr;
+            parent = cursorNode;
 
-            if (0 < curr.compareTo(sNode)) {
-                curr = curr.getLeft();
+            if (0 < cursorNode.compareTo(searchNode)) {
+                cursorNode = cursorNode.getLeft();
             } else {
-                curr = curr.getRight();
+                cursorNode = cursorNode.getRight();
             }
         }
-        if (curr == null) {
+        if (cursorNode == null) {
             return;
         }
 
-        if (!curr.hasLeft() && !curr.hasRight()) {
+        if (!cursorNode.hasLeft() && !cursorNode.hasRight()) {
 
-            if (curr != rootNode) {
-                if (parent.getLeft().equals(curr)) {
+            if (cursorNode != rootNode) {
+                if (parent.getLeft().equals(cursorNode)) {
                     parent.setLeft(null);
                 } else {
                     parent.setRight(null);
@@ -54,23 +54,23 @@ public class Tree<T extends Comparable<T>> {
             }
         }
 
-        else if (curr.hasLeft() && curr.hasRight()) {
+        else if (cursorNode.hasLeft() && cursorNode.hasRight()) {
 
-            Node<T> successor = getMinimumKey(curr.getRight());
+            Node<T> successor = getMinimumKey(cursorNode.getRight());
 
-            T val = successor.getValue();
+            var val = successor.getValue();
 
             delete(successor.getValue());
 
-            curr.setValue(val);
+            cursorNode.setValue(val);
         }
 
         else {
 
-            Node<T> child = (curr.hasLeft()) ? curr.getLeft() : curr.getRight();
+            Node<T> child = (cursorNode.hasLeft()) ? cursorNode.getLeft() : cursorNode.getRight();
 
-            if (curr.equals(rootNode)) {
-                if (curr.equals(parent.getLeft())) {
+            if (cursorNode.equals(rootNode)) {
+                if (cursorNode.equals(parent.getLeft())) {
                     parent.setLeft(child);
                 } else {
                     parent.setRight(child);
@@ -90,4 +90,5 @@ public class Tree<T extends Comparable<T>> {
         }
         return curr;
     }
+    
 }
