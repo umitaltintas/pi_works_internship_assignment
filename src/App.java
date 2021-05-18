@@ -11,13 +11,9 @@ public class App {
         try {
             /* read all characters from input file*/
             content = new String(Files.readAllBytes(Paths.get("input.txt")));
-            /* remove unexpected characters*/
-            content=content.replace("\n", "");
-            content=content.replace("\r", "");
-            content=content.replace(" ", "");
-
-            /* convert string to the integer array*/
-            int[] arr = Stream.of(content.split(",", 0)).mapToInt(Integer::parseInt).toArray();
+            /* remove unexpected characters
+             convert string to the integer array*/
+            int[] arr = Stream.of(content.split("\\W+", 0)).mapToInt(Integer::parseInt).toArray();
             out.println(getMaxSum(arr));
         } 
         /* it could be some characters is not integer so let's check them*/
