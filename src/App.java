@@ -9,14 +9,16 @@ public class App {
     public static void main(String[] args) throws Exception {
         String content;
         try {
-            /* read all characters from input file*/
-            content = new String(Files.readAllBytes(Paths.get("input.txt")));
-            /* remove unexpected characters
-             convert string to the integer array*/
-            int[] arr = Stream.of(content.split("\\W+", 0)).mapToInt(Integer::parseInt).toArray();
+            /* read all characters from input file */
+            content = readFileToString("input.txt");
+            /*
+             * remove unexpected characters convert string to the integer array
+             */
+            int[] arr = stringToIntArray(content);
+
             out.println(getMaxSum(arr));
-        } 
-        /* it could be some characters is not integer so let's check them*/
+        }
+        /* it could be some characters is not integer so let's check them */
         catch (IOException e) {
             e.printStackTrace();
         }
@@ -25,25 +27,19 @@ public class App {
     public static int getMaxSum(int[] orthoTree) {
         return getMaxSumRec(orthoTree, 0, 1);
     }
+
     /**
-     * there is a relation between children, parent by  depth
-     * if we start root node with index=1 and depth=0
-     * left-child would be : parent+depth
-     * right-child : parent+depth+1
+     * there is a relation between children, parent by depth if we start root node
+     * with index=1 and depth=0 left-child would be : parent+depth right-child :
+     * parent+depth+1
      * 
-     *          1
-     *     2         3
-     * 4        5        6  
+     * 1 2 3 4 5 6
      * 
-     * 2= 1+1
-     * 3= 1+1+1
-     * 4=2+2
-     * 5=2+2+1 or 3+2
-     * 6=3+2
+     * 2= 1+1 3= 1+1+1 4=2+2 5=2+2+1 or 3+2 6=3+2
      * 
      * @param orthoTree array of tree represantation
-     * @param index array index of element
-     * @param depth row index of element
+     * @param index     array index of element
+     * @param depth     row index of element
      * @return maximum path sum of the tree
      */
     private static int getMaxSumRec(int[] orthoTree, int index, int depth) {
@@ -68,6 +64,8 @@ public class App {
     }
 
 
+
+    
     /* an easy isPrime method :) */
     private static boolean isPrime(int i) {
         if (i < 2) {
@@ -88,5 +86,14 @@ public class App {
             }
         }
         return true;
+    }
+
+    public static int[] stringToIntArray(String content) {
+        return Stream.of(content.split("\\W+", 0)).mapToInt(Integer::parseInt).toArray();
+    }
+
+    public static String readFileToString(String filename) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(filename)));
+
     }
 }
