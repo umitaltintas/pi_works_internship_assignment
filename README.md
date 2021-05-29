@@ -8,5 +8,5 @@ There is a relation between children, parent by  depth.</br>
 3= 1+1+1</br>
 4=2+2</br>
 5=2+2+1 or 3+2</br>
-6=3+2</br>
+6=3+2+1</br>
 ===
